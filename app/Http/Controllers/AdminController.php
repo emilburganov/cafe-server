@@ -73,7 +73,7 @@ class AdminController extends Controller
      * @param Request $request
      * @return JsonResponse
      */
-    public function storeShift(Request $request): JsonResponse
+    public function storeShifts(Request $request): JsonResponse
     {
         $v = Validator::make($request->all(), [
             'start' => 'required|date_format:Y-m-d H:i',
@@ -94,6 +94,15 @@ class AdminController extends Controller
             'start' => $shift->start,
             'end' => $shift->end,
         ], 201);
+    }
+
+    public function getShifts(Request $request): JsonResponse
+    {
+        $workShifts = WorkShift::all();
+
+        return response()->json([
+            'data' => ShiftResource::collection($workShifts),
+        ]);
     }
 
     /**

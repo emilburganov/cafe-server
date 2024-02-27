@@ -30,6 +30,7 @@ Route::middleware('auth.token')->group(function () {
     Route::get('/logout', [AuthController::class, 'logout']);
 
     Route::patch('/order/{order}/change-status', [WaiterController::class, 'changeOrderStatus']);
+    Route::get('/work-shift', [AdminController::class, 'getShifts']);
 
     /* Cook Guard */
     Route::middleware('role:3')->group(function () {
@@ -43,7 +44,7 @@ Route::middleware('auth.token')->group(function () {
         Route::post('/user', [AdminController::class, 'storeUsers']);
 
         /* Shifts */
-        Route::post('/work-shift', [AdminController::class, 'storeShift']);
+        Route::post('/work-shift', [AdminController::class, 'storeShifts']);
         Route::get('/work-shift/{workShift}/open', [AdminController::class, 'openShift']);
         Route::get('/work-shift/{workShift}/close', [AdminController::class, 'closeShift']);
         Route::post('/work-shift/{workShift}/user', [AdminController::class, 'addUserToShift']);
